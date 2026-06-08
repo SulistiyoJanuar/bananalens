@@ -2248,7 +2248,7 @@
       <div class="footer-logo">🍌 Banana<span>Lens</span> Pro</div>
       <div class="footer-links">
         <a href="#sectors">Sektor</a><a href="#detect">Deteksi</a
-        ><a href="#dashboard">Dashboard</a><a href="#recipes">Resep</a
+        ><a href="#recipes">Resep</a
         ><a href="#expiry">Kedaluwarsa</a>
       </div>
       <div class="footer-note">Kelompok 4· Powered by YOLOv8 + ONNX</div>
@@ -2773,7 +2773,6 @@
         if (detectionHistory.length > 50) detectionHistory.length = 50;
         localStorage.setItem('bl_history', JSON.stringify(detectionHistory));
         localStorage.setItem('bl_counts', JSON.stringify(aggCounts));
-        updateDashboard();
       }
 
       // ═══════════════════════════════════════════════════════
@@ -2861,79 +2860,6 @@
         c.getContext('2d').drawImage(v, 0, 0);
         currentImageBase64 = c.toDataURL('image/jpeg', 0.9);
         runDetection();
-      }
-
-      // ═══════════════════════════════════════════════════════
-      // DASHBOARD
-      // ═══════════════════════════════════════════════════════
-      function updateDashboard() {
-        const total = Object.values(aggCounts).reduce((a, b) => a + b, 0);
-        document.getElementById('hist-total-lbl').textContent =
-          `(${total} pisang total)`;
-        const bars = document.getElementById('chart-bars');
-        if (total === 0) {
-          bars.innerHTML =
-            '<div style="text-align:center;color:var(--muted);font-size:.85rem;width:100%;display:flex;align-items:center;justify-content:center">Belum ada data.</div>';
-          document.getElementById('donut-legend').innerHTML = '';
-          document.getElementById('recent-scans-list').innerHTML =
-            '<div style="text-align:center;color:var(--muted);font-size:.85rem;padding:1.2rem">Belum ada riwayat</div>';
-          return;
-        }
-        const maxV = Math.max(...Object.values(aggCounts), 1);
-        bars.innerHTML = Object.entries(aggCounts)
-          .map(
-            ([k, v]) =>
-              `<div class="bar-group"><div class="bar-val">${v}</div><div class="bar-wrap"><div class="bar" style="height:${Math.max(4, (v / maxV) * 120)}px;background:${CLASS_COLORS[k]}"></div></div><div class="bar-lbl">${CLASS_LABELS[k].split(' ')[0]}</div></div>`,
-          )
-          .join('');
-
-        const svg = document.getElementById('donut-svg');
-        let angle = -Math.PI / 2;
-        const r = 60,
-          cx = 80,
-          cy = 80;
-        const arcs = Object.entries(aggCounts).map(([k, v]) => {
-          const sweep = (v / total) * 2 * Math.PI;
-          const x1 = cx + r * Math.cos(angle),
-            y1 = cy + r * Math.sin(angle);
-          angle += sweep;
-          const x2 = cx + r * Math.cos(angle),
-            y2 = cy + r * Math.sin(angle);
-          return {
-            d: `M ${x1} ${y1} A ${r} ${r} 0 ${sweep > Math.PI ? 1 : 0} 1 ${x2} ${y2}`,
-            color: CLASS_COLORS[k],
-            pct: v === 0 ? 0 : Math.round((v / total) * 100),
-          };
-        });
-        svg.innerHTML =
-          `<circle cx="80" cy="80" r="60" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="22"/>` +
-          arcs
-            .filter((a) => a.pct > 0)
-            .map(
-              (a) =>
-                `<path d="${a.d}" fill="none" stroke="${a.color}" stroke-width="22" stroke-linecap="round"/>`,
-            )
-            .join('') +
-          `<text x="80" y="76" text-anchor="middle" fill="#fff" font-family="'Playfair Display',serif" font-size="22" font-weight="700">${total}</text><text x="80" y="94" text-anchor="middle" fill="#888" font-family="Syne,sans-serif" font-size="11">pisang</text>`;
-        document.getElementById('donut-legend').innerHTML = Object.entries(
-          aggCounts,
-        )
-          .map(
-            ([k, v]) =>
-              `<div class="legend-item"><span class="legend-dot" style="background:${CLASS_COLORS[k]}"></span>${CLASS_LABELS[k]}<span>${v}</span></div>`,
-          )
-          .join('');
-
-        document.getElementById('hist-count-lbl').textContent =
-          `(${detectionHistory.length})`;
-        document.getElementById('recent-scans-list').innerHTML =
-          detectionHistory
-            .slice(0, 6)
-            .map(
-              (e) =>
-                `<div class="scan-row"><div class="scan-thumb">${{ unripe: '💚', ripe: '🌟', overripe: '🍌', rotten: '❌' }[e.topClass] || '🍌'}</div><div class="scan-info"><div class="scan-name">${e.total} pisang terdeteksi</div><div class="scan-meta">${e.time} · ${e.date}</div></div><span class="scan-badge sb-${e.topClass}">${CLASS_LABELS[e.topClass] || e.topClass}</span></div>`,
-            )
-            .join('');
       }
 
       // ═══════════════════════════════════════════════════════
