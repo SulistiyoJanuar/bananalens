@@ -1,0 +1,3055 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>BananaLens Pro — Platform Kematangan Pisang Multi-Sektor</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --y: #f0b429;
+        --yd: #c87f0a;
+        --yl: #fff8e1;
+        --g: #2a6b28;
+        --gl: #e8f5e9;
+        --br: #7c3a10;
+        --brl: #fdf0e8;
+        --rot: #5a5a5a;
+        --rotl: #f0f0f0;
+        --dark: #0d0d0d;
+        --dark2: #1a1a1a;
+        --dark3: #242424;
+        --muted: #888;
+        --border: rgba(255, 255, 255, 0.07);
+        --card: rgba(255, 255, 255, 0.04);
+        --r: 14px;
+        --rb: 20px;
+        --font-display: 'Playfair Display', serif;
+        --font-ui: 'Syne', sans-serif;
+        --font-mono: 'DM Mono', monospace;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--font-ui);
+        background: var(--dark);
+        color: #fff;
+        overflow-x: hidden;
+      }
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--dark);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--y);
+        border-radius: 4px;
+      }
+
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 200;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.9rem 2.5rem;
+        background: rgba(13, 13, 13, 0.92);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--border);
+      }
+      .logo {
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .logo span {
+        color: var(--y);
+        font-style: italic;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 1.8rem;
+        list-style: none;
+      }
+      .nav-links a {
+        text-decoration: none;
+        font-size: 0.82rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--muted);
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: #fff;
+      }
+      .nav-pill {
+        background: var(--y);
+        color: var(--dark) !important;
+        padding: 0.45rem 1.1rem;
+        border-radius: 50px;
+        transition: background 0.2s !important;
+      }
+      .nav-pill:hover {
+        background: var(--yd) !important;
+      }
+
+      .sector-bar {
+        background: var(--dark2);
+        border-bottom: 1px solid var(--border);
+        padding: 0.75rem 2.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        overflow-x: auto;
+        scrollbar-width: none;
+        margin-top: 52px;
+      }
+      .sector-bar::-webkit-scrollbar {
+        display: none;
+      }
+      .sector-label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-right: 0.4rem;
+        white-space: nowrap;
+      }
+      .stab {
+        padding: 0.42rem 1.1rem;
+        border-radius: 50px;
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--muted);
+        font-family: var(--font-ui);
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        white-space: nowrap;
+      }
+      .stab.active,
+      .stab:hover {
+        background: var(--y);
+        color: var(--dark);
+        border-color: var(--y);
+      }
+
+      #hero {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        padding: 6rem 4rem 4rem;
+        gap: 4rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-noise {
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+        pointer-events: none;
+        opacity: 0.4;
+      }
+      .hero-glow {
+        position: absolute;
+        width: 700px;
+        height: 700px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(240, 180, 41, 0.09) 0%,
+          transparent 70%
+        );
+        top: -100px;
+        right: -100px;
+        pointer-events: none;
+      }
+      .badge-row {
+        display: flex;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+        margin-bottom: 1.5rem;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.3rem 0.85rem;
+        border-radius: 50px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+      }
+      .badge-gold {
+        background: rgba(240, 180, 41, 0.12);
+        border: 1px solid rgba(240, 180, 41, 0.3);
+        color: var(--y);
+      }
+      .badge-green {
+        background: rgba(42, 107, 40, 0.2);
+        border: 1px solid rgba(42, 107, 40, 0.4);
+        color: #4caf50;
+      }
+      .badge-mono {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border);
+        color: var(--muted);
+      }
+      .badge .dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+      h1 {
+        font-family: var(--font-display);
+        font-size: clamp(2.6rem, 4.5vw, 4rem);
+        font-weight: 700;
+        line-height: 1.08;
+        color: #fff;
+        margin-bottom: 1.2rem;
+      }
+      h1 em {
+        font-style: italic;
+        color: var(--y);
+      }
+      .hero-desc {
+        font-size: 1.05rem;
+        color: var(--muted);
+        line-height: 1.75;
+        margin-bottom: 2.5rem;
+        max-width: 480px;
+      }
+      .hero-btns {
+        display: flex;
+        gap: 0.9rem;
+        flex-wrap: wrap;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.85rem 1.8rem;
+        border-radius: 50px;
+        font-family: var(--font-ui);
+        font-weight: 700;
+        font-size: 0.9rem;
+        cursor: pointer;
+        border: none;
+        text-decoration: none;
+        transition: all 0.22s;
+      }
+      .btn-y {
+        background: var(--y);
+        color: var(--dark);
+        box-shadow: 0 0 32px rgba(240, 180, 41, 0.25);
+      }
+      .btn-y:hover {
+        background: var(--yd);
+        transform: translateY(-2px);
+        box-shadow: 0 0 44px rgba(240, 180, 41, 0.35);
+      }
+      .btn-ghost {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--muted);
+      }
+      .btn-ghost:hover {
+        border-color: rgba(255, 255, 255, 0.2);
+        color: #fff;
+      }
+      .btn-sm {
+        padding: 0.55rem 1.3rem;
+        font-size: 0.82rem;
+      }
+
+      .hero-visual {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .ripeness-wheel {
+        position: relative;
+        width: 340px;
+        height: 340px;
+      }
+      .wheel-ring {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 1.5px dashed rgba(240, 180, 41, 0.2);
+        animation: spin 22s linear infinite;
+      }
+      .wheel-ring2 {
+        position: absolute;
+        inset: 30px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        animation: spin 30s linear infinite reverse;
+      }
+      .wheel-center {
+        position: absolute;
+        inset: 70px;
+        border-radius: 50%;
+        background: rgba(240, 180, 41, 0.08);
+        border: 1px solid rgba(240, 180, 41, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .wheel-chip {
+        position: absolute;
+        background: var(--dark3);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 0.5rem 0.9rem;
+        font-size: 0.78rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        white-space: nowrap;
+        animation: bob 3.5s ease-in-out infinite;
+      }
+      .wc1 {
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        --tx: -50%;
+        animation-delay: 0s;
+      }
+      .wc2 {
+        top: 50%;
+        right: -30px;
+        transform: translateY(-50%);
+        animation-delay: 0.8s;
+      }
+      .wc3 {
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        --tx: -50%;
+        animation-delay: 1.6s;
+      }
+      .wc4 {
+        top: 50%;
+        left: -30px;
+        transform: translateY(-50%);
+        animation-delay: 2.4s;
+      }
+      @keyframes bob {
+        0%,
+        100% {
+          transform: translateY(0) translateX(var(--tx, 0));
+        }
+        50% {
+          transform: translateY(-6px) translateX(var(--tx, 0));
+        }
+      }
+      .chip-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+      }
+
+      .sector-hero-text {
+        display: none;
+      }
+      .sector-hero-text.active {
+        display: block;
+        animation: fadeIn 0.4s ease;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .sector-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        background: rgba(240, 180, 41, 0.1);
+        border: 1px solid rgba(240, 180, 41, 0.2);
+        border-radius: 50px;
+        padding: 0.3rem 0.8rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--y);
+        margin-bottom: 1rem;
+      }
+
+      section {
+        padding: 5rem 4rem;
+      }
+      .section-eyebrow {
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--y);
+        margin-bottom: 0.8rem;
+      }
+      .section-title {
+        font-family: var(--font-display);
+        font-size: clamp(1.8rem, 2.8vw, 2.4rem);
+        font-weight: 700;
+        color: #fff;
+        line-height: 1.15;
+        margin-bottom: 0.8rem;
+      }
+      .section-sub {
+        color: var(--muted);
+        line-height: 1.7;
+        max-width: 560px;
+        font-size: 0.95rem;
+      }
+
+      .stats-band {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        background: var(--dark2);
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+      }
+      .stat-cell {
+        padding: 2rem 1.5rem;
+        text-align: center;
+        border-right: 1px solid var(--border);
+      }
+      .stat-cell:last-child {
+        border-right: none;
+      }
+      .stat-num {
+        font-family: var(--font-display);
+        font-size: 2.2rem;
+        color: var(--y);
+        font-weight: 700;
+        font-style: italic;
+      }
+      .stat-lbl {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-top: 0.3rem;
+      }
+
+      #sectors {
+        background: var(--dark);
+      }
+      .sector-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.2rem;
+        margin-top: 2.5rem;
+      }
+      .sector-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--rb);
+        padding: 2rem;
+        cursor: pointer;
+        transition: all 0.25s;
+        position: relative;
+        overflow: hidden;
+      }
+      .sector-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(240, 180, 41, 0.04),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity 0.25s;
+      }
+      .sector-card:hover {
+        border-color: rgba(240, 180, 41, 0.25);
+        transform: translateY(-3px);
+      }
+      .sector-card:hover::after {
+        opacity: 1;
+      }
+      .sc-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 1.2rem;
+      }
+      .sc-name {
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: #fff;
+        margin-bottom: 0.4rem;
+      }
+      .sc-desc {
+        font-size: 0.85rem;
+        color: var(--muted);
+        line-height: 1.6;
+        margin-bottom: 1.2rem;
+      }
+      .sc-tags {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+      .sc-tag {
+        font-size: 0.7rem;
+        font-weight: 600;
+        padding: 0.2rem 0.6rem;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--muted);
+      }
+
+      #classes {
+        background: var(--dark2);
+      }
+      .classes-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.2rem;
+        margin-top: 2.5rem;
+      }
+      .ccard {
+        border-radius: var(--r);
+        padding: 1.8rem 1.4rem;
+        border: 1px solid;
+        transition: transform 0.25s;
+      }
+      .ccard:hover {
+        transform: translateY(-5px);
+      }
+      .ccard-unripe {
+        background: rgba(42, 107, 40, 0.08);
+        border-color: rgba(42, 107, 40, 0.2);
+      }
+      .ccard-ripe {
+        background: rgba(240, 180, 41, 0.07);
+        border-color: rgba(240, 180, 41, 0.2);
+      }
+      .ccard-overripe {
+        background: rgba(124, 58, 16, 0.08);
+        border-color: rgba(124, 58, 16, 0.25);
+      }
+      .ccard-rotten {
+        background: rgba(90, 90, 90, 0.08);
+        border-color: rgba(90, 90, 90, 0.2);
+      }
+      .cc-icon {
+        font-size: 2rem;
+        margin-bottom: 0.8rem;
+      }
+      .cc-name {
+        font-weight: 700;
+        font-size: 1rem;
+        color: #fff;
+        margin-bottom: 0.3rem;
+      }
+      .cc-id {
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        color: var(--muted);
+        margin-bottom: 0.8rem;
+      }
+      .cc-desc {
+        font-size: 0.82rem;
+        color: var(--muted);
+        line-height: 1.6;
+        margin-bottom: 0.8rem;
+      }
+      .cc-tip {
+        font-size: 0.78rem;
+        color: var(--muted);
+        border-top: 1px solid rgba(255, 255, 255, 0.07);
+        padding-top: 0.8rem;
+        font-style: italic;
+      }
+      .cc-conf {
+        display: inline-block;
+        margin-top: 0.6rem;
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        padding: 0.2rem 0.6rem;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      #how {
+        background: var(--dark);
+      }
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        position: relative;
+        margin-top: 2.5rem;
+      }
+      .steps::before {
+        content: '';
+        position: absolute;
+        top: 1.8rem;
+        left: calc(16.5%+1rem);
+        right: calc(16.5%+1rem);
+        height: 1px;
+        background: linear-gradient(90deg, var(--y), var(--yd));
+        z-index: 0;
+      }
+      .step {
+        text-align: center;
+        padding: 0 1rem;
+        position: relative;
+        z-index: 1;
+      }
+      .step-num {
+        width: 3.6rem;
+        height: 3.6rem;
+        border-radius: 50%;
+        background: var(--y);
+        color: var(--dark);
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        border: 3px solid var(--dark);
+        box-shadow: 0 0 0 1.5px var(--y);
+      }
+      .step-icon {
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+      }
+      .step-title {
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: #fff;
+        margin-bottom: 0.4rem;
+      }
+      .step-desc {
+        font-size: 0.82rem;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      #detect {
+        background: var(--dark2);
+      }
+      .detect-center {
+        max-width: 640px;
+        margin: 0 auto;
+      }
+      .input-block {
+        background: var(--dark3);
+        border: 1px solid var(--border);
+        border-radius: var(--rb);
+        padding: 1.8rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+      }
+      .block-label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .tab-row {
+        display: flex;
+        gap: 0.4rem;
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 12px;
+        padding: 3px;
+      }
+      .tbtn {
+        flex: 1;
+        padding: 0.55rem 0.8rem;
+        border: none;
+        border-radius: 9px;
+        background: transparent;
+        color: var(--muted);
+        font-family: var(--font-ui);
+        font-size: 0.82rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.35rem;
+      }
+      .tbtn.active {
+        background: var(--y);
+        color: var(--dark);
+      }
+      .drop-zone {
+        border: 2px dashed rgba(240, 180, 41, 0.2);
+        border-radius: var(--r);
+        padding: 2.5rem 1.5rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.25s;
+        background: rgba(255, 255, 255, 0.02);
+        position: relative;
+      }
+      .drop-zone:hover,
+      .drop-zone.dragover {
+        border-color: var(--y);
+        background: rgba(240, 180, 41, 0.04);
+      }
+      .dz-icon {
+        font-size: 2.5rem;
+        margin-bottom: 0.8rem;
+      }
+      .dz-title {
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: #fff;
+        margin-bottom: 0.3rem;
+      }
+      .dz-sub {
+        font-size: 0.8rem;
+        color: var(--muted);
+        margin-bottom: 1rem;
+      }
+      #file-input {
+        display: none;
+      }
+      #preview-img {
+        display: none;
+        width: 100%;
+        border-radius: 10px;
+        max-height: 320px;
+        object-fit: contain;
+      }
+      .action-row {
+        display: flex;
+        gap: 0.8rem;
+        margin-top: 1rem;
+      }
+      #cam-panel {
+        display: none;
+      }
+      #camera-video {
+        width: 100%;
+        border-radius: var(--r);
+        background: #000;
+        aspect-ratio: 4/3;
+        object-fit: cover;
+        display: block;
+      }
+      #cam-canvas {
+        display: none;
+      }
+      .cam-controls {
+        display: flex;
+        gap: 0.7rem;
+        margin-top: 0.8rem;
+      }
+      .btn-cap {
+        flex: 1;
+        background: var(--y);
+        color: var(--dark);
+        border: none;
+        padding: 0.65rem;
+        border-radius: 10px;
+        font-family: var(--font-ui);
+        font-weight: 700;
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: background 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.35rem;
+      }
+      .btn-cap:hover {
+        background: var(--yd);
+      }
+      .btn-stop {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.07);
+        color: #fff;
+        border: none;
+        padding: 0.65rem;
+        border-radius: 10px;
+        font-family: var(--font-ui);
+        font-weight: 600;
+        font-size: 0.85rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.35rem;
+      }
+      .auto-row {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        margin-top: 0.6rem;
+      }
+      .auto-row input[type='checkbox'] {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--y);
+        cursor: pointer;
+      }
+      .auto-row label {
+        font-size: 0.82rem;
+        color: var(--muted);
+        cursor: pointer;
+      }
+
+      #result-full {
+        display: none;
+        background: var(--dark);
+        padding: 3rem 4rem;
+        border-top: 1px solid var(--border);
+      }
+      .rf-2col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+      }
+      .res-img {
+        border-radius: 14px;
+        width: 100%;
+        display: block;
+        background: #000;
+      }
+      .summary-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 0.8rem;
+      }
+      .sum-card {
+        background: rgba(240, 180, 41, 0.07);
+        border: 1px solid rgba(240, 180, 41, 0.15);
+        border-radius: 12px;
+        padding: 0.9rem;
+        text-align: center;
+      }
+      .sum-num {
+        font-family: var(--font-display);
+        font-size: 1.6rem;
+        color: var(--y);
+        font-weight: 700;
+      }
+      .sum-lbl {
+        font-size: 0.68rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+        margin-top: 0.2rem;
+      }
+      .det-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+      }
+      .det-item {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 10px;
+        padding: 0.7rem 0.9rem;
+        border-left: 3px solid var(--y);
+      }
+      .det-emoji {
+        font-size: 1.3rem;
+      }
+      .det-info {
+        flex: 1;
+      }
+      .det-lbl {
+        font-weight: 600;
+        font-size: 0.88rem;
+        color: #fff;
+      }
+      .det-desc {
+        font-size: 0.74rem;
+        color: var(--muted);
+        margin-top: 0.15rem;
+      }
+      .det-conf {
+        font-family: var(--font-mono);
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--y);
+      }
+      .det-rec {
+        display: inline-block;
+        margin-top: 0.4rem;
+        font-size: 0.7rem;
+        padding: 0.15rem 0.55rem;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--muted);
+      }
+
+      #dashboard {
+        background: var(--dark2);
+      }
+      .dash-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 1.5rem;
+        margin-top: 2.5rem;
+      }
+      .dash-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--rb);
+        padding: 1.8rem;
+      }
+      .dash-card-title {
+        font-weight: 700;
+        font-size: 0.92rem;
+        color: #fff;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+      .dash-card-title span {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        color: var(--muted);
+      }
+      .chart-bars {
+        display: flex;
+        align-items: flex-end;
+        gap: 1rem;
+        height: 140px;
+        margin-bottom: 0.6rem;
+      }
+      .bar-group {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.3rem;
+      }
+      .bar-wrap {
+        flex: 1;
+        width: 100%;
+        display: flex;
+        align-items: flex-end;
+      }
+      .bar {
+        width: 100%;
+        border-radius: 6px 6px 0 0;
+        transition: height 0.4s ease;
+        min-height: 4px;
+      }
+      .bar-lbl {
+        font-size: 0.7rem;
+        color: var(--muted);
+        text-align: center;
+      }
+      .bar-val {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        color: var(--y);
+        margin-bottom: 0.2rem;
+      }
+      .donut-wrap {
+        position: relative;
+        width: 160px;
+        height: 160px;
+        margin: 0 auto;
+      }
+      .legend-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        margin-top: 1rem;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+      .legend-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .legend-item span:last-child {
+        margin-left: auto;
+        font-family: var(--font-mono);
+        color: #fff;
+      }
+      .scan-row {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        padding: 0.65rem 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .scan-row:last-child {
+        border-bottom: none;
+      }
+      .scan-thumb {
+        width: 44px;
+        height: 44px;
+        border-radius: 8px;
+        background: var(--dark3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        flex-shrink: 0;
+      }
+      .scan-info {
+        flex: 1;
+      }
+      .scan-name {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #fff;
+      }
+      .scan-meta {
+        font-size: 0.73rem;
+        color: var(--muted);
+        margin-top: 0.15rem;
+      }
+      .scan-badge {
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 0.2rem 0.55rem;
+        border-radius: 6px;
+      }
+      .sb-ripe {
+        background: rgba(240, 180, 41, 0.15);
+        color: var(--y);
+      }
+      .sb-unripe {
+        background: rgba(76, 175, 80, 0.12);
+        color: #4caf50;
+      }
+      .sb-overripe {
+        background: rgba(124, 58, 16, 0.15);
+        color: #e07030;
+      }
+      .sb-rotten {
+        background: rgba(90, 90, 90, 0.15);
+        color: #aaa;
+      }
+
+      #recipes {
+        background: var(--dark);
+      }
+      .rec-intro {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .rec-filter {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+      .rfbtn {
+        padding: 0.4rem 1rem;
+        border-radius: 50px;
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--muted);
+        font-family: var(--font-ui);
+        font-size: 0.78rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .rfbtn.active,
+      .rfbtn:hover {
+        background: var(--y);
+        color: var(--dark);
+        border-color: var(--y);
+      }
+      .rec-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.2rem;
+      }
+      .rec-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--rb);
+        padding: 1.6rem;
+        transition: all 0.25s;
+        cursor: pointer;
+      }
+      .rec-card:hover {
+        border-color: rgba(240, 180, 41, 0.2);
+        transform: translateY(-3px);
+      }
+      .rec-top {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        margin-bottom: 1rem;
+      }
+      .rec-emoji {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+        flex-shrink: 0;
+      }
+      .rec-name {
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: #fff;
+        margin-bottom: 0.2rem;
+      }
+      .rec-by {
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
+      .rec-tags-row {
+        display: flex;
+        gap: 0.4rem;
+        flex-wrap: wrap;
+        margin-bottom: 0.8rem;
+      }
+      .rec-tag {
+        font-size: 0.68rem;
+        font-weight: 600;
+        padding: 0.18rem 0.55rem;
+        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--muted);
+      }
+      .rec-tag-y {
+        background: rgba(240, 180, 41, 0.12);
+        color: var(--y);
+      }
+      .rec-desc {
+        font-size: 0.82rem;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+      .rec-meta {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+        padding-top: 0.8rem;
+        border-top: 1px solid var(--border);
+      }
+      .rec-meta-item {
+        font-size: 0.75rem;
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+      .rec-meta-item strong {
+        color: #fff;
+      }
+
+      #expiry {
+        background: var(--dark2);
+      }
+      .expiry-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+        margin-top: 2rem;
+      }
+      .expiry-card {
+        background: var(--dark3);
+        border: 1px solid var(--border);
+        border-radius: var(--rb);
+        padding: 2rem;
+      }
+      .exp-selector {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+        margin-bottom: 1.5rem;
+      }
+      .exp-opt {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: center;
+      }
+      .exp-opt:hover,
+      .exp-opt.selected {
+        border-color: var(--y);
+        background: rgba(240, 180, 41, 0.06);
+      }
+      .exp-opt-emoji {
+        font-size: 1.6rem;
+        margin-bottom: 0.4rem;
+      }
+      .exp-opt-name {
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #fff;
+      }
+      .exp-opt-hint {
+        font-size: 0.7rem;
+        color: var(--muted);
+        margin-top: 0.15rem;
+      }
+      .storage-sel {
+        display: flex;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+        margin-bottom: 1.2rem;
+      }
+      .ssel {
+        padding: 0.4rem 0.9rem;
+        border-radius: 50px;
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--muted);
+        font-family: var(--font-ui);
+        font-size: 0.78rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .ssel.active {
+        background: rgba(240, 180, 41, 0.12);
+        border-color: rgba(240, 180, 41, 0.3);
+        color: var(--y);
+      }
+      .exp-result {
+        background: var(--dark2);
+        border-radius: var(--r);
+        padding: 1.5rem;
+        border: 1px solid var(--border);
+      }
+      .exp-days {
+        font-family: var(--font-display);
+        font-size: 3rem;
+        color: var(--y);
+        font-weight: 700;
+        line-height: 1;
+      }
+      .exp-days-unit {
+        font-size: 0.85rem;
+        color: var(--muted);
+        margin-top: 0.3rem;
+      }
+      .exp-bar-wrap {
+        margin: 1rem 0;
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 6px;
+        height: 8px;
+        overflow: hidden;
+      }
+      .exp-bar {
+        height: 100%;
+        border-radius: 6px;
+        background: linear-gradient(90deg, var(--y), var(--yd));
+        transition: width 0.5s ease;
+      }
+      .exp-advice {
+        font-size: 0.82rem;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+      .exp-warning {
+        display: none;
+        margin-top: 0.8rem;
+        background: rgba(224, 75, 48, 0.08);
+        border: 1px solid rgba(224, 75, 48, 0.2);
+        border-radius: 8px;
+        padding: 0.7rem;
+        font-size: 0.78rem;
+        color: #e04b30;
+      }
+
+      #tips {
+        background: var(--dark);
+      }
+      .tips-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.2rem;
+        margin-top: 2.5rem;
+      }
+      .tip-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--r);
+        padding: 1.8rem;
+        transition: transform 0.2s;
+      }
+      .tip-card:hover {
+        transform: translateY(-3px);
+      }
+      .tip-icon {
+        font-size: 1.8rem;
+        margin-bottom: 0.9rem;
+      }
+      .tip-title {
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: #fff;
+        margin-bottom: 0.5rem;
+      }
+      .tip-text {
+        font-size: 0.83rem;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      #export {
+        background: var(--dark2);
+      }
+      .export-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.2rem;
+        margin-top: 2.5rem;
+      }
+      .export-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--rb);
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.25s;
+        cursor: pointer;
+      }
+      .export-card:hover {
+        border-color: rgba(240, 180, 41, 0.25);
+        transform: translateY(-3px);
+      }
+      .export-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+      .export-name {
+        font-weight: 700;
+        font-size: 1rem;
+        color: #fff;
+        margin-bottom: 0.4rem;
+      }
+      .export-desc {
+        font-size: 0.82rem;
+        color: var(--muted);
+        line-height: 1.6;
+        margin-bottom: 1.2rem;
+      }
+      .export-btn {
+        padding: 0.55rem 1.2rem;
+        background: var(--y);
+        color: var(--dark);
+        border: none;
+        border-radius: 50px;
+        font-family: var(--font-ui);
+        font-weight: 700;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .export-btn:hover {
+        background: var(--yd);
+      }
+
+      footer {
+        background: var(--dark2);
+        border-top: 1px solid var(--border);
+        padding: 2.5rem 4rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .footer-logo {
+        font-family: var(--font-display);
+        font-size: 1.1rem;
+        color: #fff;
+      }
+      .footer-logo span {
+        color: var(--y);
+        font-style: italic;
+      }
+      .footer-links {
+        display: flex;
+        gap: 1.5rem;
+      }
+      .footer-links a {
+        text-decoration: none;
+        font-size: 0.82rem;
+        color: var(--muted);
+        transition: color 0.2s;
+      }
+      .footer-links a:hover {
+        color: #fff;
+      }
+      .footer-note {
+        font-size: 0.78rem;
+        color: var(--muted);
+      }
+      .footer-note code {
+        color: var(--y);
+        font-family: var(--font-mono);
+      }
+
+      .toast {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        background: var(--dark3);
+        color: #fff;
+        padding: 0.75rem 1.1rem;
+        border-radius: 12px;
+        font-size: 0.85rem;
+        z-index: 999;
+        transform: translateY(100px);
+        opacity: 0;
+        transition: all 0.3s;
+        max-width: 320px;
+        border: 1px solid var(--border);
+      }
+      .toast.show {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      .toast-s {
+        border-left: 3px solid #4caf50;
+      }
+      .toast-e {
+        border-left: 3px solid #e04b30;
+      }
+      .toast-i {
+        border-left: 3px solid var(--y);
+      }
+
+      @media (max-width: 900px) {
+        #hero,
+        .expiry-layout,
+        .dash-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero-visual,
+        .steps::before {
+          display: none;
+        }
+        .classes-grid,
+        .rec-grid,
+        .sector-grid,
+        .tips-grid,
+        .export-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .stats-band {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .stat-cell:nth-child(2) {
+          border-right: none;
+        }
+        nav ul.nav-links {
+          display: none;
+        }
+        .sector-bar {
+          margin-top: 52px;
+        }
+        section {
+          padding: 3rem 1.5rem;
+        }
+        #hero {
+          padding: 7rem 1.5rem 3rem;
+        }
+        #result-full {
+          padding: 2.5rem 1.5rem;
+        }
+        .rf-2col {
+          grid-template-columns: 1fr !important;
+        }
+      }
+      @media (max-width: 600px) {
+        .classes-grid,
+        .rec-grid,
+        .sector-grid,
+        .tips-grid,
+        .export-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="logo">🍌 Banana<span>Lens</span> Pro</div>
+      <ul class="nav-links">
+        <li><a href="#sectors">Sektor</a></li>
+        <li><a href="#classes">Kelas</a></li>
+        <li><a href="#recipes">Resep</a></li>
+        <li><a href="#expiry">Kedaluwarsa</a></li>
+        <li><a href="#detect" class="nav-pill">Deteksi</a></li>
+      </ul>
+    </nav>
+
+    <section id="hero">
+      <div class="hero-noise"></div>
+      <div class="hero-glow"></div>
+      <div>
+        <div class="badge-row">
+          <div class="badge badge-gold">
+            <div class="dot"></div>
+            YOLOv8 AI
+          </div>
+          <div class="badge badge-green">
+            <div class="dot"></div>
+            4 Kelas Deteksi
+          </div>
+          <div class="badge badge-mono">Multi-Sektor Platform</div>
+        </div>
+        <div class="sector-hero-text active" data-s="all">
+          <h1>Platform AI <em>Kematangan Pisang</em> Terlengkap</h1>
+          <p class="hero-desc">
+            Dari petani ke konsumen, dari gudang ke dapur — BananaLens Pro
+            menghadirkan deteksi kematangan pisang berbasis YOLOv8 yang bisa
+            dipakai di semua lini industri.
+          </p>
+        </div>
+        <div class="hero-btns">
+          <a href="#detect" class="btn btn-y">🔍 Mulai Deteksi</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="ripeness-wheel">
+          <div class="wheel-ring"></div>
+          <div class="wheel-ring2"></div>
+          <div class="wheel-center">🍌</div>
+          <div class="wheel-chip wc1">
+            <div class="chip-dot" style="background: #4caf50"></div>
+            Belum Matang
+          </div>
+          <div class="wheel-chip wc2">
+            <div class="chip-dot" style="background: var(--y)"></div>
+            Matang ✨
+          </div>
+          <div class="wheel-chip wc3">
+            <div class="chip-dot" style="background: #e07030"></div>
+            Terlalu Matang
+          </div>
+          <div class="wheel-chip wc4">
+            <div class="chip-dot" style="background: #888"></div>
+            Busuk
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="stats-band">
+      <div class="stat-cell">
+        <div class="stat-num">4</div>
+        <div class="stat-lbl">Kelas Deteksi</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">YOLOv8</div>
+        <div class="stat-lbl">Model AI</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num" id="inf-time-stat">&lt;1s</div>
+        <div class="stat-lbl">Inferensi</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">5+</div>
+        <div class="stat-lbl">Sektor Industri</div>
+      </div>
+    </div>
+
+    <section id="sectors">
+      <div class="section-eyebrow">Kasus Penggunaan</div>
+      <h2 class="section-title">Satu Platform, Semua Sektor</h2>
+      <p class="section-sub">
+        BananaLens Pro dirancang untuk digunakan di berbagai industri — dari
+        ladang hingga meja makan.
+      </p>
+      <div class="sector-grid">
+        <div
+          class="sector-card"
+          onclick="
+            setSector('retail');
+            document
+              .querySelector('#hero')
+              .scrollIntoView({ behavior: 'smooth' });
+          "
+        >
+          <div class="sc-icon" style="background: rgba(240, 180, 41, 0.1)">
+            🏪
+          </div>
+          <div class="sc-name">Retail &amp; Supermarket</div>
+          <p class="sc-desc">
+            Monitor kondisi pisang di rak secara real-time. Kurangi food waste
+            dengan rotasi stok cerdas berdasarkan deteksi AI.
+          </p>
+          <div class="sc-tags">
+            <span class="sc-tag">Inventory QC</span
+            ><span class="sc-tag">Food Waste Reduction</span
+            ><span class="sc-tag">Laporan Harian</span>
+          </div>
+        </div>
+        <div
+          class="sector-card"
+          onclick="
+            setSector('farm');
+            document
+              .querySelector('#hero')
+              .scrollIntoView({ behavior: 'smooth' });
+          "
+        >
+          <div class="sc-icon" style="background: rgba(42, 107, 40, 0.12)">
+            🌿
+          </div>
+          <div class="sc-name">Pertanian &amp; Perkebunan</div>
+          <p class="sc-desc">
+            Tentukan jadwal panen optimal dari foto lapangan. Pantau kematangan
+            batch per batch dan prediksi waktu distribusi.
+          </p>
+          <div class="sc-tags">
+            <span class="sc-tag">Jadwal Panen</span
+            ><span class="sc-tag">Batch Tracking</span
+            ><span class="sc-tag">Prediksi Yield</span>
+          </div>
+        </div>
+        <div
+          class="sector-card"
+          onclick="
+            setSector('fnb');
+            document
+              .querySelector('#hero')
+              .scrollIntoView({ behavior: 'smooth' });
+          "
+        >
+          <div class="sc-icon" style="background: rgba(224, 75, 48, 0.08)">
+            🍽️
+          </div>
+          <div class="sc-name">Industri Makanan &amp; F&B</div>
+          <p class="sc-desc">
+            Sortir bahan baku otomatis sesuai kebutuhan produksi. Overripe ke
+            jalur pengolahan, ripe ke menu segar.
+          </p>
+          <div class="sc-tags">
+            <span class="sc-tag">Auto-Sorting</span
+            ><span class="sc-tag">Bahan Baku QC</span
+            ><span class="sc-tag">Line Produksi</span>
+          </div>
+        </div>
+        <div
+          class="sector-card"
+          onclick="
+            setSector('home');
+            document
+              .querySelector('#hero')
+              .scrollIntoView({ behavior: 'smooth' });
+          "
+        >
+          <div class="sc-icon" style="background: rgba(100, 160, 240, 0.08)">
+            🏠
+          </div>
+          <div class="sc-name">Konsumen Rumahan</div>
+          <p class="sc-desc">
+            Foto pisang di dapur dan langsung dapat rekomendasi resep yang pas.
+            Ketahui kapan waktu terbaik mengolahnya.
+          </p>
+          <div class="sc-tags">
+            <span class="sc-tag">Rekomendasi Resep</span
+            ><span class="sc-tag">Tips Penyimpanan</span
+            ><span class="sc-tag">Mudah Dipakai</span>
+          </div>
+        </div>
+        <div
+          class="sector-card"
+          onclick="
+            setSector('export');
+            document
+              .querySelector('#hero')
+              .scrollIntoView({ behavior: 'smooth' });
+          "
+        >
+          <div class="sc-icon" style="background: rgba(140, 100, 240, 0.08)">
+            📦
+          </div>
+          <div class="sc-name">Ekspor &amp; Logistik</div>
+          <p class="sc-desc">
+            QC otomatis sebelum loading kontainer. Dokumentasi kondisi tiap
+            palet dan laporan siap cetak untuk buyer.
+          </p>
+          <div class="sc-tags">
+            <span class="sc-tag">Pre-Shipment QC</span
+            ><span class="sc-tag">Shelf Life Prediction</span
+            ><span class="sc-tag">PDF Report</span>
+          </div>
+        </div>
+        <div class="sector-card">
+          <div class="sc-icon" style="background: rgba(240, 180, 41, 0.08)">
+            🔬
+          </div>
+          <div class="sc-name">Riset &amp; Akademik</div>
+          <p class="sc-desc">
+            Dataset deteksi kematangan pisang untuk riset pascapanen, machine
+            learning pertanian, dan pengembangan model computer vision.
+          </p>
+          <div class="sc-tags">
+            <span class="sc-tag">Dataset Export</span
+            ><span class="sc-tag">API Access</span
+            ><span class="sc-tag">Model Metrics</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="classes">
+      <div style="text-align: center; margin-bottom: 3rem">
+        <div class="section-eyebrow">Deteksi</div>
+        <h2 class="section-title">4 Kelas Kematangan Pisang</h2>
+        <p class="section-sub" style="margin: 0 auto">
+          Model YOLOv8 mengenali empat kondisi pisang dengan akurasi tinggi —
+          dilengkapi rekomendasi spesifik per sektor.
+        </p>
+      </div>
+      <div class="classes-grid">
+        <div class="ccard ccard-unripe">
+          <div class="cc-icon">💚</div>
+          <div class="cc-name">Belum Matang</div>
+          <div class="cc-id">class: unripe · index 3</div>
+          <p class="cc-desc">
+            Pisang masih mentah, warna hijau dominan. Kadar pati tinggi, belum
+            siap dikonsumsi langsung.
+          </p>
+          <div class="cc-tip">
+            ⏳ Simpan di suhu ruang 2–4 hari. Retail: masukkan stok baru.
+          </div>
+          <div class="cc-conf" style="color: #4caf50">Shelf life: 5–7 hari</div>
+        </div>
+        <div class="ccard ccard-ripe">
+          <div class="cc-icon">🌟</div>
+          <div class="cc-name">Matang Sempurna</div>
+          <div class="cc-id">class: ripe · index 1</div>
+          <p class="cc-desc">
+            Kuning cerah, tekstur lembut, rasa manis optimal. Kandungan vitamin
+            dan antioksidan di puncaknya.
+          </p>
+          <div class="cc-tip">
+            ✅ Konsumsi segera atau display di rak premium. F&B: gunakan untuk
+            menu fresh.
+          </div>
+          <div class="cc-conf" style="color: var(--y)">
+            Shelf life: 2–3 hari
+          </div>
+        </div>
+        <div class="ccard ccard-overripe">
+          <div class="cc-icon">🍌</div>
+          <div class="cc-name">Terlalu Matang</div>
+          <div class="cc-id">class: overripe · index 0</div>
+          <p class="cc-desc">
+            Kulit mulai menghitam, tekstur sangat lembek, rasa manis intens.
+            Ideal untuk produk olahan.
+          </p>
+          <div class="cc-tip">
+            🎂 F&B: jalur produksi banana bread / smoothie. Retail: diskon
+            cepat.
+          </div>
+          <div class="cc-conf" style="color: #e07030">Shelf life: 1–2 hari</div>
+        </div>
+        <div class="ccard ccard-rotten">
+          <div class="cc-icon">❌</div>
+          <div class="cc-name">Busuk</div>
+          <div class="cc-id">class: rotten · index 2</div>
+          <p class="cc-desc">
+            Pembusukan aktif, jamur atau fermentasi. Tidak layak untuk
+            dikonsumsi maupun diolah.
+          </p>
+          <div class="cc-tip">
+            🗑️ Buang segera. Dokumentasi untuk analisis food waste. Karantina
+            stok sekitarnya.
+          </div>
+          <div class="cc-conf" style="color: #888">Tidak layak konsumsi</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <div style="text-align: center; margin-bottom: 3.5rem">
+        <div class="section-eyebrow">Proses</div>
+        <h2 class="section-title">Cara Kerja BananaLens Pro</h2>
+        <p class="section-sub" style="margin: 0 auto">
+          Tiga langkah sederhana dari foto ke keputusan bisnis yang berdasar
+          data.
+        </p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-icon">📸</div>
+          <div class="step-title">Ambil Foto / Gunakan Kamera</div>
+          <p class="step-desc">
+            Upload gambar pisang atau aktifkan kamera untuk deteksi langsung
+            dari perangkatmu.
+          </p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-icon">🧠</div>
+          <div class="step-title">Analisis AI YOLOv8</div>
+          <p class="step-desc">
+            Backend Flask + ONNX Runtime memproses gambar dalam &lt;1 detik,
+            mendeteksi dan mengklasifikasikan setiap pisang.
+          </p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-icon">📊</div>
+          <div class="step-title">Hasil, Rekomendasi &amp; Laporan</div>
+          <p class="step-desc">
+            Dapatkan label kematangan, tingkat kepercayaan, rekomendasi per
+            sektor, resep, prediksi kedaluwarsa, dan opsi export.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="detect">
+      <div style="text-align: center; margin-bottom: 2.5rem">
+        <div class="section-eyebrow">🔬 Deteksi AI</div>
+        <h2 class="section-title" style="margin: 0 auto">
+          Deteksi Kematangan Pisang
+        </h2>
+        <p class="section-sub" style="margin: 0 auto">
+          Upload foto pisang atau gunakan kamera untuk mendapatkan probabilitas
+          kematangan instan berbasis model YOLOv8.
+        </p>
+      </div>
+      <div class="detect-center">
+        <div class="input-block">
+          <div>
+            <div class="block-label" style="margin-bottom: 0.7rem">Input</div>
+            <div class="tab-row">
+              <button
+                class="tbtn active"
+                id="tab-photo"
+                onclick="switchTab('photo')"
+              >
+                📷 Upload Foto
+              </button>
+              <button class="tbtn" id="tab-cam" onclick="switchTab('cam')">
+                🎥 Kamera
+              </button>
+            </div>
+          </div>
+          <div id="photo-panel">
+            <div
+              class="drop-zone"
+              id="drop-zone"
+              onclick="document.getElementById('file-input').click()"
+              ondragover="onDragOver(event)"
+              ondragleave="onDragLeave(event)"
+              ondrop="onDrop(event)"
+            >
+              <div id="dz-placeholder">
+                <div class="dz-icon">📤</div>
+                <div class="dz-title">Drag &amp; drop foto pisang</div>
+                <div class="dz-sub">atau klik · JPG, PNG, WEBP</div>
+                <button
+                  class="btn btn-y btn-sm"
+                  onclick="event.stopPropagation()"
+                >
+                  Pilih Foto
+                </button>
+              </div>
+              <img id="preview-img" alt="preview" />
+            </div>
+            <input
+              type="file"
+              id="file-input"
+              accept="image/*"
+              onchange="onFileSelect(event)"
+            />
+            <div class="action-row">
+              <button
+                class="btn btn-y"
+                onclick="runDetection()"
+                style="flex: 1; justify-content: center"
+              >
+                🔍 Deteksi Sekarang
+              </button>
+              <button class="btn btn-ghost" onclick="clearPhoto()">
+                ✕ Reset
+              </button>
+            </div>
+          </div>
+          <div id="cam-panel">
+            <video id="camera-video" autoplay playsinline muted></video>
+            <canvas id="cam-canvas"></canvas>
+            <div class="cam-controls">
+              <button class="btn-cap" onclick="captureFrame()">
+                📸 Capture &amp; Deteksi
+              </button>
+              <button class="btn-stop" onclick="stopCamera()">⏹ Stop</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="result-full">
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 2rem;
+          flex-wrap: wrap;
+          gap: 1rem;
+        "
+      >
+        <div>
+          <div class="section-eyebrow" id="rf-eyebrow">Hasil Deteksi</div>
+          <h2 class="section-title" id="rf-title" style="margin-bottom: 0">
+            Analisis Kematangan Pisang
+          </h2>
+        </div>
+        <div style="display: flex; gap: 0.6rem; flex-wrap: wrap">
+          <button
+            class="btn btn-y btn-sm"
+            onclick="exportJSON()"
+            style="font-size: 0.8rem"
+          >
+            📥 Export JSON
+          </button>
+          <button
+            class="btn btn-ghost btn-sm"
+            onclick="exportCSV()"
+            style="font-size: 0.8rem; color: var(--muted)"
+          >
+            📊 Export CSV
+          </button>
+          <button
+            class="btn btn-ghost btn-sm"
+            onclick="
+              document.getElementById('result-full').style.display = 'none'
+            "
+            style="font-size: 0.8rem; color: var(--muted)"
+          >
+            ✕ Tutup
+          </button>
+        </div>
+      </div>
+      <div class="rf-2col" style="margin-bottom: 1.5rem">
+        <div>
+          <div
+            style="
+              font-size: 0.72rem;
+              font-weight: 700;
+              letter-spacing: 0.1em;
+              text-transform: uppercase;
+              color: var(--muted);
+              margin-bottom: 0.7rem;
+            "
+          >
+            Gambar Terdeteksi
+          </div>
+          <img id="result-img" class="res-img" src="" alt="Hasil deteksi" />
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 1rem">
+          <div
+            style="
+              font-size: 0.72rem;
+              font-weight: 700;
+              letter-spacing: 0.1em;
+              text-transform: uppercase;
+              color: var(--muted);
+            "
+          >
+            Detail Deteksi
+          </div>
+          <div class="summary-row" id="result-summary"></div>
+          <div class="det-list" id="detection-list" style="flex: 1"></div>
+        </div>
+      </div>
+      <div style="margin-bottom: 1.5rem">
+        <div
+          style="
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.9rem;
+          "
+        >
+          Prediksi Shelf Life per Kondisi Terdeteksi
+        </div>
+        <div
+          id="rf-shelflife"
+          style="display: flex; gap: 1rem; flex-wrap: wrap"
+        ></div>
+      </div>
+      <div style="margin-bottom: 1.5rem">
+        <div
+          style="
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.9rem;
+          "
+        >
+          Rekomendasi Pengolahan &amp; Resep
+        </div>
+        <div
+          id="rf-recipes"
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+          "
+        ></div>
+      </div>
+      <div>
+        <div
+          style="
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.9rem;
+          "
+        >
+          Tindakan yang Disarankan
+        </div>
+        <div
+          id="rf-actions"
+          style="display: flex; flex-direction: column; gap: 0.7rem"
+        ></div>
+      </div>
+    </section>
+
+    <section id="recipes">
+      <div class="rec-intro">
+        <div>
+          <div class="section-eyebrow">Resep &amp; Pengolahan</div>
+          <h2 class="section-title">Rekomendasi Resep per Kondisi</h2>
+        </div>
+        <div class="rec-filter">
+          <button class="rfbtn active" onclick="filterRecipe('all', this)">
+            Semua
+          </button>
+          <button class="rfbtn" onclick="filterRecipe('overripe', this)">
+            🍌 Terlalu Matang
+          </button>
+          <button class="rfbtn" onclick="filterRecipe('ripe', this)">
+            🌟 Matang
+          </button>
+          <button class="rfbtn" onclick="filterRecipe('unripe', this)">
+            💚 Belum Matang
+          </button>
+        </div>
+      </div>
+      <div class="rec-grid" id="rec-grid"></div>
+    </section>
+
+    <section id="expiry">
+      <div class="expiry-layout">
+        <div>
+          <div class="section-eyebrow">Prediksi Kedaluwarsa</div>
+          <h2 class="section-title">Perkirakan Sisa Shelf Life Pisangmu</h2>
+          <p class="section-sub">
+            Pilih kondisi pisang saat ini dan metode penyimpanan untuk
+            mendapatkan estimasi berapa hari lagi pisangmu layak dikonsumsi.
+          </p>
+        </div>
+        <div class="expiry-card">
+          <div class="block-label" style="margin-bottom: 0.8rem">
+            1. Kondisi Pisang Saat Ini
+          </div>
+          <div class="exp-selector">
+            <div
+              class="exp-opt selected"
+              onclick="selectExpiry('unripe', this)"
+            >
+              <div class="exp-opt-emoji">💚</div>
+              <div class="exp-opt-name">Belum Matang</div>
+              <div class="exp-opt-hint">Masih hijau</div>
+            </div>
+            <div class="exp-opt" onclick="selectExpiry('ripe', this)">
+              <div class="exp-opt-emoji">🌟</div>
+              <div class="exp-opt-name">Matang Sempurna</div>
+              <div class="exp-opt-hint">Kuning cerah</div>
+            </div>
+            <div class="exp-opt" onclick="selectExpiry('overripe', this)">
+              <div class="exp-opt-emoji">🍌</div>
+              <div class="exp-opt-name">Terlalu Matang</div>
+              <div class="exp-opt-hint">Mulai menghitam</div>
+            </div>
+            <div class="exp-opt" onclick="selectExpiry('rotten', this)">
+              <div class="exp-opt-emoji">❌</div>
+              <div class="exp-opt-name">Busuk</div>
+              <div class="exp-opt-hint">Ada jamur/bau</div>
+            </div>
+          </div>
+          <div class="block-label" style="margin-bottom: 0.6rem">
+            2. Metode Penyimpanan
+          </div>
+          <div class="storage-sel">
+            <button class="ssel active" onclick="selectStorage('room', this)">
+              🌡️ Suhu Ruang
+            </button>
+            <button class="ssel" onclick="selectStorage('fridge', this)">
+              ❄️ Kulkas
+            </button>
+            <button class="ssel" onclick="selectStorage('frozen', this)">
+              🧊 Freezer
+            </button>
+            <button class="ssel" onclick="selectStorage('ethylene', this)">
+              🧪 Etilen
+            </button>
+          </div>
+          <div class="exp-result">
+            <div id="exp-days-num" class="exp-days">6</div>
+            <div class="exp-days-unit" id="exp-days-unit">
+              hari tersisa (estimasi)
+            </div>
+            <div class="exp-bar-wrap">
+              <div class="exp-bar" id="exp-bar" style="width: 70%"></div>
+            </div>
+            <p class="exp-advice" id="exp-advice">
+              Simpan di suhu ruang 2–4 hari. Jauhkan dari pisang matang.
+            </p>
+            <div class="exp-warning" id="exp-warning">
+              ⚠️ Tidak layak dikonsumsi. Segera buang untuk mencegah
+              kontaminasi.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tips">
+      <div class="section-eyebrow">Panduan</div>
+      <h2 class="section-title">Tips Hasil Deteksi Akurat</h2>
+      <div class="tips-grid">
+        <div class="tip-card">
+          <div class="tip-icon">💡</div>
+          <div class="tip-title">Pencahayaan Merata</div>
+          <p class="tip-text">
+            Pastikan pisang terkena cahaya cukup dan merata. Hindari bayangan
+            yang menutupi kulit.
+          </p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon">📐</div>
+          <div class="tip-title">Jarak &amp; Sudut Ideal</div>
+          <p class="tip-text">
+            Foto dari jarak 20–50 cm. Pastikan seluruh pisang terlihat jelas
+            dalam frame.
+          </p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon">🎯</div>
+          <div class="tip-title">Fokus pada Kulit</div>
+          <p class="tip-text">
+            Gambar harus tajam dan tidak buram. Model menganalisis warna dan
+            tekstur kulit secara detail.
+          </p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon">🌿</div>
+          <div class="tip-title">Latar Kontras</div>
+          <p class="tip-text">
+            Gunakan latar belakang yang kontras — putih, hitam, atau abu-abu
+            solid.
+          </p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon">📱</div>
+          <div class="tip-title">Resolusi Minimal 720p</div>
+          <p class="tip-text">
+            Kamera smartphone modern sudah lebih dari cukup. Pastikan lensa
+            bersih.
+          </p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon">🍌</div>
+          <div class="tip-title">Multi Pisang Sekaligus</div>
+          <p class="tip-text">
+            Bisa deteksi beberapa pisang dalam satu foto! Susun dengan jarak
+            yang cukup.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-logo">🍌 Banana<span>Lens</span> Pro</div>
+      <div class="footer-links">
+        <a href="#sectors">Sektor</a><a href="#detect">Deteksi</a
+        ><a href="#dashboard">Dashboard</a><a href="#recipes">Resep</a
+        ><a href="#expiry">Kedaluwarsa</a>
+      </div>
+      <div class="footer-note">Kelompok 4· Powered by YOLOv8 + ONNX</div>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+      // ═══════════════════════════════════════════════════════
+      // KONFIGURASI API
+      // ═══════════════════════════════════════════════════════
+      const API_URL = 'https://sulistiyo-bananalens-pro.hf.space/'; // Ganti dengan URL backend Flask-mu
+
+      // ═══════════════════════════════════════════════════════
+      // DATA
+      // ═══════════════════════════════════════════════════════
+      const colorMap = {
+        overripe: '#e07030',
+        ripe: '#f0b429',
+        rotten: '#888',
+        unripe: '#4caf50',
+      };
+      const emojiMap = {
+        overripe: '🍌',
+        ripe: '🌟',
+        rotten: '❌',
+        unripe: '💚',
+      };
+      const labelMap = {
+        overripe: 'Terlalu Matang',
+        ripe: 'Matang Sempurna',
+        rotten: 'Busuk',
+        unripe: 'Belum Matang',
+      };
+
+      const EXPIRY_LOCAL = {
+        unripe: {
+          room: 6,
+          fridge: 10,
+          frozen: 90,
+          advice: 'Simpan di suhu ruang 2–4 hari. Jauhkan dari pisang matang.',
+        },
+        ripe: {
+          room: 2,
+          fridge: 5,
+          frozen: 90,
+          advice:
+            'Konsumsi segera atau masukkan kulkas untuk perpanjang 3 hari.',
+        },
+        overripe: {
+          room: 1,
+          fridge: 3,
+          frozen: 60,
+          advice:
+            'Segera olah hari ini. Ideal untuk banana bread atau smoothie.',
+        },
+        rotten: {
+          room: 0,
+          fridge: 0,
+          frozen: 0,
+          advice:
+            'Tidak layak dikonsumsi. Buang dan bersihkan area penyimpanan.',
+        },
+      };
+
+      const RECIPE_MAP = {
+        overripe: [
+          {
+            name: 'Banana Bread',
+            emoji: '🍞',
+            time: '60 mnt',
+            diff: 'Mudah',
+            desc: 'Roti pisang moist dari pisang terlalu matang. Manis alami tanpa gula.',
+          },
+          {
+            name: 'Smoothie Pisang',
+            emoji: '🥤',
+            time: '5 mnt',
+            diff: 'Sangat Mudah',
+            desc: 'Blender pisang overripe dengan susu almond dan madu.',
+          },
+          {
+            name: 'Pancake Oat',
+            emoji: '🥞',
+            time: '20 mnt',
+            diff: 'Mudah',
+            desc: 'Pancake bebas gula dari pisang dan oat. Sarapan sehat.',
+          },
+        ],
+        ripe: [
+          {
+            name: 'Makan Langsung',
+            emoji: '🌟',
+            time: '0 mnt',
+            diff: '—',
+            desc: 'Kondisi terbaik untuk dikonsumsi langsung. Nutrisi di puncaknya.',
+          },
+          {
+            name: 'Es Krim Pisang',
+            emoji: '🍦',
+            time: '12 jam',
+            diff: 'Mudah',
+            desc: 'Bekukan pisang, blender jadi es krim satu bahan.',
+          },
+          {
+            name: 'Salad Buah',
+            emoji: '🥗',
+            time: '10 mnt',
+            diff: 'Mudah',
+            desc: 'Kombinasikan dengan mangga, stroberi, dan saus yogurt.',
+          },
+        ],
+        unripe: [
+          {
+            name: 'Keripik Pisang',
+            emoji: '🟡',
+            time: '30 mnt',
+            diff: 'Menengah',
+            desc: 'Pisang mentah menghasilkan keripik paling renyah.',
+          },
+          {
+            name: 'Pisang Kukus',
+            emoji: '♨️',
+            time: '20 mnt',
+            diff: 'Sangat Mudah',
+            desc: 'Tekstur padat cocok dikukus sebagai pengganti karbohidrat.',
+          },
+          {
+            name: 'Tepung Pisang',
+            emoji: '🌾',
+            time: '2 jam',
+            diff: 'Lanjutan',
+            desc: 'Pisang mentah dikeringkan menjadi tepung gluten-free.',
+          },
+        ],
+        rotten: [
+          {
+            name: 'Kompos Organik',
+            emoji: '🌱',
+            time: '—',
+            diff: '—',
+            desc: 'Pisang busuk sangat baik untuk pupuk kompos organik.',
+          },
+        ],
+      };
+
+      const ACTIONS = {
+        unripe: {
+          icon: '⏳',
+          color: '#4caf50',
+          text: 'Simpan di suhu ruang 2–4 hari. Jangan masukkan kulkas — memperlambat pematangan.',
+        },
+        ripe: {
+          icon: '✅',
+          color: '#f0b429',
+          text: 'Konsumsi segera dalam 1–2 hari. Bisa masuk kulkas untuk perpanjang 3–5 hari.',
+        },
+        overripe: {
+          icon: '⚡',
+          color: '#e07030',
+          text: 'Segera olah hari ini! Pisahkan dari pisang lain. Ideal untuk baking atau smoothie.',
+        },
+        rotten: {
+          icon: '⚠️',
+          color: '#e04b30',
+          text: 'Buang segera dan pisahkan dari buah lain. Bersihkan area dengan air cuka.',
+        },
+      };
+
+      const RECIPES = [
+        {
+          name: 'Banana Bread Klasik',
+          by: 'Resep Rumahan',
+          cls: 'overripe',
+          emoji: '🍞',
+          bg: 'rgba(124,58,16,.12)',
+          tags: ['Terlalu Matang', 'Kue', 'Panggang'],
+          desc: 'Roti pisang moist sempurna dari pisang terlalu matang. Aroma karamel alami.',
+          time: '60 mnt',
+          diff: 'Mudah',
+          serve: '8',
+        },
+        {
+          name: 'Smoothie Pisang Kencur',
+          by: 'Kesehatan',
+          cls: 'overripe',
+          emoji: '🥤',
+          bg: 'rgba(124,58,16,.12)',
+          tags: ['Terlalu Matang', 'Minuman', 'Sehat'],
+          desc: 'Smoothie bergizi dari pisang matang, kencur segar, madu, dan susu almond.',
+          time: '5 mnt',
+          diff: 'Sangat Mudah',
+          serve: '2',
+        },
+        {
+          name: 'Pancake Pisang Oat',
+          by: 'Sarapan Sehat',
+          cls: 'overripe',
+          emoji: '🥞',
+          bg: 'rgba(124,58,16,.12)',
+          tags: ['Terlalu Matang', 'Sarapan', 'Gluten-free'],
+          desc: 'Pancake tinggi serat dari pisang overripe dan oat. Manis alami.',
+          time: '20 mnt',
+          diff: 'Mudah',
+          serve: '4',
+        },
+        {
+          name: 'Makan Langsung',
+          by: 'Konsumsi Fresh',
+          cls: 'ripe',
+          emoji: '🌟',
+          bg: 'rgba(240,180,41,.08)',
+          tags: ['Matang', 'Langsung', 'Premium'],
+          desc: 'Pisang matang sempurna paling lezat dimakan langsung. Nutrisi di puncaknya.',
+          time: '0 mnt',
+          diff: 'Sangat Mudah',
+          serve: '1',
+        },
+        {
+          name: 'Es Krim Pisang Madu',
+          by: 'Dessert',
+          cls: 'ripe',
+          emoji: '🍦',
+          bg: 'rgba(240,180,41,.08)',
+          tags: ['Matang', 'Frozen', 'Dessert'],
+          desc: 'Iris pisang matang, bekukan semalam, blender hingga creamy.',
+          time: '12 jam',
+          diff: 'Mudah',
+          serve: '3',
+        },
+        {
+          name: 'Salad Buah Pisang',
+          by: 'Segar',
+          cls: 'ripe',
+          emoji: '🥗',
+          bg: 'rgba(240,180,41,.08)',
+          tags: ['Matang', 'Salad', 'Segar'],
+          desc: 'Pisang matang dicampur mangga, stroberi, dan saus yogurt lemon.',
+          time: '10 mnt',
+          diff: 'Mudah',
+          serve: '4',
+        },
+        {
+          name: 'Keripik Pisang',
+          by: 'Industri F&B',
+          cls: 'unripe',
+          emoji: '🟡',
+          bg: 'rgba(42,107,40,.08)',
+          tags: ['Belum Matang', 'Goreng', 'Industri'],
+          desc: 'Pisang mentah ideal untuk keripik renyah. Kadar air rendah.',
+          time: '30 mnt',
+          diff: 'Menengah',
+          serve: '6',
+        },
+        {
+          name: 'Pisang Rebus / Kukus',
+          by: 'Tradisional',
+          cls: 'unripe',
+          emoji: '♨️',
+          bg: 'rgba(42,107,40,.08)',
+          tags: ['Belum Matang', 'Rebus', 'Tradisional'],
+          desc: 'Tekstur padat cocok dikukus sebagai pengganti karbohidrat.',
+          time: '20 mnt',
+          diff: 'Sangat Mudah',
+          serve: '4',
+        },
+        {
+          name: 'Tepung Pisang',
+          by: 'Produksi Industri',
+          cls: 'unripe',
+          emoji: '🌾',
+          bg: 'rgba(42,107,40,.08)',
+          tags: ['Belum Matang', 'Tepung', 'Industri'],
+          desc: 'Pisang mentah dikeringkan menjadi tepung kaya serat gluten-free.',
+          time: '2 jam',
+          diff: 'Lanjutan',
+          serve: '—',
+        },
+      ];
+
+      const EXPIRY_DATA = {
+        unripe: {
+          room: 6,
+          fridge: 10,
+          frozen: 90,
+          ethylene: 2,
+          advice: {
+            room: 'Simpan di tempat terbuka, jauh dari pisang matang.',
+            fridge: 'Kulkas memperlambat pematangan secara signifikan.',
+            frozen: 'Bekukan untuk stok jangka panjang.',
+            ethylene: 'Gas etilen mempercepat pematangan 1–2 hari.',
+          },
+        },
+        ripe: {
+          room: 2,
+          fridge: 5,
+          frozen: 90,
+          ethylene: 1,
+          advice: {
+            room: 'Konsumsi segera!',
+            fridge: 'Kulit menghitam tapi daging tetap segar.',
+            frozen: 'Kupas, bekukan dalam plastik.',
+            ethylene: 'Sudah matang — etilen mempercepat pembusukan.',
+          },
+        },
+        overripe: {
+          room: 1,
+          fridge: 3,
+          frozen: 60,
+          ethylene: 0,
+          advice: {
+            room: 'Segera olah hari ini!',
+            fridge: 'Bisa bertahan 2–3 hari lagi.',
+            frozen: 'Kupas, bekukan untuk baking.',
+            ethylene: 'Tidak disarankan.',
+          },
+        },
+        rotten: {
+          room: 0,
+          fridge: 0,
+          frozen: 0,
+          ethylene: 0,
+          advice: {
+            room: 'Buang segera.',
+            fridge: 'Tidak disarankan.',
+            frozen: 'Tidak layak.',
+            ethylene: 'Tidak relevan.',
+          },
+        },
+      };
+
+      const CLASS_COLORS = {
+        unripe: '#4caf50',
+        ripe: '#f0b429',
+        overripe: '#e07030',
+        rotten: '#888',
+      };
+      const CLASS_LABELS = {
+        unripe: 'Belum Matang',
+        ripe: 'Matang',
+        overripe: 'Terlalu Matang',
+        rotten: 'Busuk',
+      };
+
+      // ═══════════════════════════════════════════════════════
+      // STATE
+      // ═══════════════════════════════════════════════════════
+      let currentImageBase64 = null;
+      let cameraStream = null;
+      let autoDetectInterval = null;
+      let currentExpCls = 'unripe';
+      let currentExpMethod = 'room';
+      let lastResult = null;
+      let detectionHistory = JSON.parse(
+        localStorage.getItem('bl_history') || '[]',
+      );
+      let aggCounts = JSON.parse(
+        localStorage.getItem('bl_counts') ||
+          '{"unripe":0,"ripe":0,"overripe":0,"rotten":0}',
+      );
+
+      // ═══════════════════════════════════════════════════════
+      // UTILS
+      // ═══════════════════════════════════════════════════════
+      function toast(msg, type = 'i') {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.className = `toast toast-${type} show`;
+        setTimeout(() => t.classList.remove('show'), 3500);
+      }
+      function setSector(s) {
+        document
+          .querySelectorAll('.stab')
+          .forEach((b) => b.classList.toggle('active', b.dataset.s === s));
+        document
+          .querySelectorAll('.sector-hero-text')
+          .forEach((el) => el.classList.toggle('active', el.dataset.s === s));
+      }
+
+      // ═══════════════════════════════════════════════════════
+      // DETECTION
+      // ═══════════════════════════════════════════════════════
+      async function runDetection() {
+        if (!currentImageBase64) {
+          toast('Pilih foto terlebih dahulu!', 'e');
+          return;
+        }
+        toast('Mengirim ke server...', 'i');
+        try {
+          const res = await fetch(API_URL + '/detect', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ image: currentImageBase64 }),
+          });
+          if (!res.ok) {
+            const e = await res.json().catch(() => ({}));
+            throw new Error(e.error || `HTTP ${res.status}`);
+          }
+          const data = await res.json();
+          if (!data.success) throw new Error(data.error || 'Unknown error');
+          lastResult = data;
+          document.getElementById('inf-time-stat').textContent =
+            data.inference_ms + 'ms';
+          showResult(data);
+          saveToHistory(data);
+          toast(
+            `Terdeteksi ${data.total_detected} pisang dalam ${data.inference_ms}ms!`,
+            's',
+          );
+        } catch (err) {
+          console.error(err);
+          toast('Error: ' + err.message, 'e');
+        }
+      }
+
+      function showResult(data) {
+        document.getElementById('result-img').src = data.annotated_image;
+        const counts = data.counts || {};
+        const detectedClasses = [
+          ...new Set(data.detections.map((d) => d.class_name)),
+        ];
+        const mainCls = data.detections[0]?.class_name || null;
+
+        document.getElementById('result-summary').innerHTML =
+          `<div class="sum-card"><div class="sum-num">${data.total_detected}</div><div class="sum-lbl">Total Pisang</div></div>` +
+          Object.entries(counts)
+            .map(
+              ([k, v]) =>
+                `<div class="sum-card"><div class="sum-num" style="color:${colorMap[k]}">${v}</div><div class="sum-lbl">${labelMap[k] || k}</div></div>`,
+            )
+            .join('');
+
+        const dl = document.getElementById('detection-list');
+        if (!data.detections.length) {
+          dl.innerHTML =
+            '<div style="text-align:center;color:var(--muted);padding:1rem;font-size:.85rem">Tidak ada pisang terdeteksi.</div>';
+        } else {
+          dl.innerHTML = data.detections
+            .map(
+              (d) =>
+                `<div class="det-item" style="border-left-color:${colorMap[d.class_name] || 'var(--y)'}"><div class="det-emoji">${emojiMap[d.class_name] || '🍌'}</div><div class="det-info"><div class="det-lbl">${d.label}</div><div class="det-desc">${d.tip}</div><div class="det-rec">${d.recommendation}</div></div><div class="det-conf" style="color:${colorMap[d.class_name] || 'var(--y)'}">${d.confidence}%</div></div>`,
+            )
+            .join('');
+        }
+
+        const sl = document.getElementById('rf-shelflife');
+        if (!detectedClasses.length) {
+          sl.innerHTML =
+            '<div style="color:var(--muted);font-size:.85rem">—</div>';
+        } else {
+          sl.innerHTML = detectedClasses
+            .map((cls) => {
+              const d = EXPIRY_LOCAL[cls];
+              const days = d ? d.room : 0;
+              const pct =
+                days === 0 ? 0 : Math.min(100, Math.round((days / 7) * 100));
+              return `<div style="flex:1;min-width:200px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:14px;padding:1.2rem"><div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem"><span style="font-size:1.3rem">${emojiMap[cls]}</span><div><div style="font-weight:700;font-size:.9rem;color:#fff">${labelMap[cls]}</div><div style="font-size:.72rem;color:var(--muted)">Shelf life estimasi</div></div></div><div style="display:flex;gap:.7rem;margin-bottom:.8rem;flex-wrap:wrap">${[
+                ['🌡️', 'Ruang', d?.room || 0],
+                ['❄️', 'Kulkas', d?.fridge || 0],
+                ['🧊', 'Freezer', d?.frozen || 0],
+              ]
+                .map(
+                  ([ic, lbl, val]) =>
+                    `<div style="text-align:center;flex:1;min-width:52px"><div style="font-size:.82rem">${ic}</div><div style="font-family:var(--font-mono);font-size:1rem;font-weight:500;color:${val === 0 ? '#e04b30' : '#f0b429'}">${val}h</div><div style="font-size:.65rem;color:var(--muted)">${lbl}</div></div>`,
+                )
+                .join(
+                  '',
+                )}</div><div style="background:rgba(255,255,255,.05);border-radius:5px;height:5px;overflow:hidden;margin-bottom:.6rem"><div style="height:100%;width:${pct}%;background:${days === 0 ? '#e04b30' : days <= 1 ? '#e07030' : '#f0b429'};border-radius:5px;transition:width .5s"></div></div><div style="font-size:.77rem;color:var(--muted);line-height:1.5">${d?.advice || ''}</div></div>`;
+            })
+            .join('');
+        }
+
+        const recDiv = document.getElementById('rf-recipes');
+        const allRecs = detectedClasses.flatMap((cls) =>
+          (RECIPE_MAP[cls] || []).map((r) => ({ ...r, cls })),
+        );
+        recDiv.innerHTML = allRecs.length
+          ? allRecs
+              .map(
+                (r) =>
+                  `<div style="background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:14px;padding:1.3rem"><div style="display:flex;align-items:center;gap:.7rem;margin-bottom:.7rem"><div style="width:42px;height:42px;border-radius:10px;background:rgba(240,180,41,.1);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0">${r.emoji}</div><div><div style="font-weight:700;font-size:.92rem;color:#fff">${r.name}</div><div style="display:flex;gap:.4rem;margin-top:.2rem"><span style="font-size:.68rem;background:rgba(240,180,41,.1);color:var(--y);padding:.15rem .5rem;border-radius:5px">${labelMap[r.cls]}</span><span style="font-size:.68rem;background:rgba(255,255,255,.06);color:var(--muted);padding:.15rem .5rem;border-radius:5px">⏱ ${r.time}</span><span style="font-size:.68rem;background:rgba(255,255,255,.06);color:var(--muted);padding:.15rem .5rem;border-radius:5px">${r.diff}</span></div></div></div><div style="font-size:.82rem;color:var(--muted);line-height:1.6">${r.desc}</div></div>`,
+              )
+              .join('')
+          : '<div style="color:var(--muted);font-size:.85rem">—</div>';
+
+        document.getElementById('rf-actions').innerHTML = detectedClasses
+          .map((cls) => {
+            const a = ACTIONS[cls];
+            return `<div style="display:flex;gap:.9rem;align-items:flex-start;background:rgba(255,255,255,.03);border:1px solid var(--border);border-left:3px solid ${a.color};border-radius:0 12px 12px 0;padding:1rem 1.2rem"><div style="font-size:1.4rem;margin-top:.05rem">${a.icon}</div><div><div style="font-weight:700;font-size:.9rem;color:#fff;margin-bottom:.3rem">${labelMap[cls]} — Tindakan</div><div style="font-size:.83rem;color:var(--muted);line-height:1.65">${a.text}</div></div></div>`;
+          })
+          .join('');
+
+        document.getElementById('rf-title').textContent = mainCls
+          ? `Dominan: ${labelMap[mainCls]}`
+          : 'Analisis Kematangan Pisang';
+        document.getElementById('rf-eyebrow').textContent =
+          `Hasil Deteksi · ${new Date().toLocaleTimeString('id', { hour: '2-digit', minute: '2-digit' })} · ${data.inference_ms}ms`;
+        const panel = document.getElementById('result-full');
+        panel.style.display = 'block';
+        setTimeout(
+          () => panel.scrollIntoView({ behavior: 'smooth', block: 'start' }),
+          80,
+        );
+      }
+
+      function saveToHistory(data) {
+        const c = data.counts || {};
+        Object.keys(c).forEach((k) => {
+          aggCounts[k] = (aggCounts[k] || 0) + c[k];
+        });
+        detectionHistory.unshift({
+          time: new Date().toLocaleTimeString('id', {
+            hour: '2-digit',
+            minute: '2-digit',
+          }),
+          date: new Date().toLocaleDateString('id'),
+          counts: c,
+          total: data.total_detected,
+          topClass: data.detections[0]?.class_name || '—',
+          conf: data.detections[0]?.confidence || 0,
+        });
+        if (detectionHistory.length > 50) detectionHistory.length = 50;
+        localStorage.setItem('bl_history', JSON.stringify(detectionHistory));
+        localStorage.setItem('bl_counts', JSON.stringify(aggCounts));
+        updateDashboard();
+      }
+
+      // ═══════════════════════════════════════════════════════
+      // FILE / CAMERA
+      // ═══════════════════════════════════════════════════════
+      function switchTab(tab) {
+        document
+          .getElementById('tab-photo')
+          .classList.toggle('active', tab === 'photo');
+        document
+          .getElementById('tab-cam')
+          .classList.toggle('active', tab === 'cam');
+        document.getElementById('photo-panel').style.display =
+          tab === 'photo' ? 'block' : 'none';
+        document.getElementById('cam-panel').style.display =
+          tab === 'cam' ? 'block' : 'none';
+        if (tab === 'cam') startCamera();
+        else stopCamera();
+      }
+      function onFileSelect(e) {
+        const f = e.target.files[0];
+        if (!f) return;
+        const r = new FileReader();
+        r.onload = (ev) => {
+          currentImageBase64 = ev.target.result;
+          document.getElementById('preview-img').src = ev.target.result;
+          document.getElementById('preview-img').style.display = 'block';
+          document.getElementById('dz-placeholder').style.display = 'none';
+        };
+        r.readAsDataURL(f);
+      }
+      function clearPhoto() {
+        currentImageBase64 = null;
+        document.getElementById('file-input').value = '';
+        document.getElementById('preview-img').style.display = 'none';
+        document.getElementById('dz-placeholder').style.display = 'block';
+        document.getElementById('result-full').style.display = 'none';
+      }
+      function onDragOver(e) {
+        e.preventDefault();
+        document.getElementById('drop-zone').classList.add('dragover');
+      }
+      function onDragLeave() {
+        document.getElementById('drop-zone').classList.remove('dragover');
+      }
+      function onDrop(e) {
+        e.preventDefault();
+        document.getElementById('drop-zone').classList.remove('dragover');
+        const f = e.dataTransfer.files[0];
+        if (f && f.type.startsWith('image/'))
+          onFileSelect({ target: { files: [f] } });
+      }
+
+      async function startCamera() {
+        try {
+          cameraStream = await navigator.mediaDevices.getUserMedia({
+            video: {
+              facingMode: { ideal: 'environment' },
+              width: { ideal: 1280 },
+              height: { ideal: 720 },
+            },
+          });
+          document.getElementById('camera-video').srcObject = cameraStream;
+          toast('Kamera aktif!', 's');
+        } catch (err) {
+          toast('Gagal akses kamera: ' + err.message, 'e');
+        }
+      }
+      function stopCamera() {
+        if (cameraStream) {
+          cameraStream.getTracks().forEach((t) => t.stop());
+          cameraStream = null;
+        }
+        if (autoDetectInterval) {
+          clearInterval(autoDetectInterval);
+          autoDetectInterval = null;
+        }
+        document.getElementById('auto-detect').checked = false;
+      }
+      function captureFrame() {
+        const v = document.getElementById('camera-video'),
+          c = document.getElementById('cam-canvas');
+        c.width = v.videoWidth;
+        c.height = v.videoHeight;
+        c.getContext('2d').drawImage(v, 0, 0);
+        currentImageBase64 = c.toDataURL('image/jpeg', 0.9);
+        runDetection();
+      }
+
+      // ═══════════════════════════════════════════════════════
+      // DASHBOARD
+      // ═══════════════════════════════════════════════════════
+      function updateDashboard() {
+        const total = Object.values(aggCounts).reduce((a, b) => a + b, 0);
+        document.getElementById('hist-total-lbl').textContent =
+          `(${total} pisang total)`;
+        const bars = document.getElementById('chart-bars');
+        if (total === 0) {
+          bars.innerHTML =
+            '<div style="text-align:center;color:var(--muted);font-size:.85rem;width:100%;display:flex;align-items:center;justify-content:center">Belum ada data.</div>';
+          document.getElementById('donut-legend').innerHTML = '';
+          document.getElementById('recent-scans-list').innerHTML =
+            '<div style="text-align:center;color:var(--muted);font-size:.85rem;padding:1.2rem">Belum ada riwayat</div>';
+          return;
+        }
+        const maxV = Math.max(...Object.values(aggCounts), 1);
+        bars.innerHTML = Object.entries(aggCounts)
+          .map(
+            ([k, v]) =>
+              `<div class="bar-group"><div class="bar-val">${v}</div><div class="bar-wrap"><div class="bar" style="height:${Math.max(4, (v / maxV) * 120)}px;background:${CLASS_COLORS[k]}"></div></div><div class="bar-lbl">${CLASS_LABELS[k].split(' ')[0]}</div></div>`,
+          )
+          .join('');
+
+        const svg = document.getElementById('donut-svg');
+        let angle = -Math.PI / 2;
+        const r = 60,
+          cx = 80,
+          cy = 80;
+        const arcs = Object.entries(aggCounts).map(([k, v]) => {
+          const sweep = (v / total) * 2 * Math.PI;
+          const x1 = cx + r * Math.cos(angle),
+            y1 = cy + r * Math.sin(angle);
+          angle += sweep;
+          const x2 = cx + r * Math.cos(angle),
+            y2 = cy + r * Math.sin(angle);
+          return {
+            d: `M ${x1} ${y1} A ${r} ${r} 0 ${sweep > Math.PI ? 1 : 0} 1 ${x2} ${y2}`,
+            color: CLASS_COLORS[k],
+            pct: v === 0 ? 0 : Math.round((v / total) * 100),
+          };
+        });
+        svg.innerHTML =
+          `<circle cx="80" cy="80" r="60" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="22"/>` +
+          arcs
+            .filter((a) => a.pct > 0)
+            .map(
+              (a) =>
+                `<path d="${a.d}" fill="none" stroke="${a.color}" stroke-width="22" stroke-linecap="round"/>`,
+            )
+            .join('') +
+          `<text x="80" y="76" text-anchor="middle" fill="#fff" font-family="'Playfair Display',serif" font-size="22" font-weight="700">${total}</text><text x="80" y="94" text-anchor="middle" fill="#888" font-family="Syne,sans-serif" font-size="11">pisang</text>`;
+        document.getElementById('donut-legend').innerHTML = Object.entries(
+          aggCounts,
+        )
+          .map(
+            ([k, v]) =>
+              `<div class="legend-item"><span class="legend-dot" style="background:${CLASS_COLORS[k]}"></span>${CLASS_LABELS[k]}<span>${v}</span></div>`,
+          )
+          .join('');
+
+        document.getElementById('hist-count-lbl').textContent =
+          `(${detectionHistory.length})`;
+        document.getElementById('recent-scans-list').innerHTML =
+          detectionHistory
+            .slice(0, 6)
+            .map(
+              (e) =>
+                `<div class="scan-row"><div class="scan-thumb">${{ unripe: '💚', ripe: '🌟', overripe: '🍌', rotten: '❌' }[e.topClass] || '🍌'}</div><div class="scan-info"><div class="scan-name">${e.total} pisang terdeteksi</div><div class="scan-meta">${e.time} · ${e.date}</div></div><span class="scan-badge sb-${e.topClass}">${CLASS_LABELS[e.topClass] || e.topClass}</span></div>`,
+            )
+            .join('');
+      }
+
+      // ═══════════════════════════════════════════════════════
+      // RECIPES
+      // ═══════════════════════════════════════════════════════
+      function renderRecipes(filter = 'all') {
+        const grid = document.getElementById('rec-grid');
+        const filtered =
+          filter === 'all' ? RECIPES : RECIPES.filter((r) => r.cls === filter);
+        grid.innerHTML = filtered
+          .map(
+            (r) =>
+              `<div class="rec-card"><div class="rec-top"><div class="rec-emoji" style="background:${r.bg}">${r.emoji}</div><div><div class="rec-name">${r.name}</div><div class="rec-by">${r.by}</div></div></div><div class="rec-tags-row">${r.tags.map((t, i) => `<span class="rec-tag${r.cls === 'ripe' && i === 0 ? ' rec-tag-y' : ''}">${t}</span>`).join('')}</div><p class="rec-desc">${r.desc}</p><div class="rec-meta"><div class="rec-meta-item">⏱ <strong>${r.time}</strong></div><div class="rec-meta-item">👥 <strong>${r.serve} porsi</strong></div><div class="rec-meta-item">📊 <strong>${r.diff}</strong></div></div></div>`,
+          )
+          .join('');
+      }
+      function filterRecipe(cls, btn) {
+        document
+          .querySelectorAll('.rfbtn')
+          .forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderRecipes(cls);
+      }
+
+      // ═══════════════════════════════════════════════════════
+      // EXPIRY PREDICTOR
+      // ═══════════════════════════════════════════════════════
+      function selectExpiry(cls, el) {
+        document
+          .querySelectorAll('.exp-opt')
+          .forEach((e) => e.classList.remove('selected'));
+        el.classList.add('selected');
+        currentExpCls = cls;
+        updateExpiry();
+      }
+      function selectStorage(method, el) {
+        document
+          .querySelectorAll('.ssel')
+          .forEach((e) => e.classList.remove('active'));
+        el.classList.add('active');
+        currentExpMethod = method;
+        updateExpiry();
+      }
+      function updateExpiry() {
+        const d = EXPIRY_DATA[currentExpCls];
+        const days = d[currentExpMethod];
+        const maxDays =
+          { room: 7, fridge: 12, frozen: 100, ethylene: 3 }[currentExpMethod] ||
+          7;
+        document.getElementById('exp-days-num').textContent = days;
+        document.getElementById('exp-days-unit').textContent =
+          days === 0 ? 'tidak layak konsumsi' : 'hari tersisa (estimasi)';
+        const pct =
+          days === 0 ? 0 : Math.min(100, Math.round((days / maxDays) * 100));
+        const bar = document.getElementById('exp-bar');
+        bar.style.width = pct + '%';
+        bar.style.background =
+          days === 0
+            ? '#e04b30'
+            : days <= 1
+              ? '#e07030'
+              : 'linear-gradient(90deg,var(--y),var(--yd))';
+        document.getElementById('exp-advice').textContent =
+          d.advice[currentExpMethod];
+        document.getElementById('exp-warning').style.display =
+          days === 0 ? 'block' : 'none';
+      }
+
+      // ═══════════════════════════════════════════════════════
+      // EXPORT
+      // ═══════════════════════════════════════════════════════
+      function exportJSON() {
+        if (!lastResult) {
+          toast('Deteksi dulu!', 'e');
+          return;
+        }
+        const blob = new Blob([JSON.stringify(lastResult, null, 2)], {
+          type: 'application/json',
+        });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `bananalens_${Date.now()}.json`;
+        a.click();
+        toast('JSON didownload ✓', 's');
+      }
+      function exportCSV() {
+        if (!detectionHistory.length) {
+          toast('Belum ada data deteksi.', 'e');
+          return;
+        }
+        const header =
+          'Waktu,Tanggal,Total,Kelas Utama,Confidence,Unripe,Ripe,Overripe,Rotten\n';
+        const rows = detectionHistory
+          .map(
+            (e) =>
+              `${e.time},${e.date},${e.total},${e.topClass},${e.conf},${e.counts.unripe || 0},${e.counts.ripe || 0},${e.counts.overripe || 0},${e.counts.rotten || 0}`,
+          )
+          .join('\n');
+        const blob = new Blob([header + rows], { type: 'text/csv' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `bananalens_report_${Date.now()}.csv`;
+        a.click();
+        toast('CSV didownload ✓', 's');
+      }
+
+      // ═══════════════════════════════════════════════════════
+      // INIT
+      // ═══════════════════════════════════════════════════════
+      renderRecipes();
+      updateExpiry();
+      updateDashboard();
+      document.getElementById('footer-api-url').textContent = API_URL.replace(
+        /^https?:\/\//,
+        '',
+      );
+    </script>
+  </body>
+</html>
